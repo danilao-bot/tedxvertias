@@ -73,7 +73,7 @@ nav.scrolled{
 .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;transition:color 0.3s;}
 .nav-links a:hover{color:#fff;}
 .btn-nav{background:var(--tedx-red);color:#fff;border:none;padding:9px 22px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;clip-path:polygon(7px 0%,100% 0%,calc(100% - 7px) 100%,0% 100%);transition:all 0.3s;}
-.btn-nav:hover{box-shadow:var(--shadow-red);transform:scale(1.04);}
+.btn-nav:hover{box-shadow:var(--shadow-red);transform:scale(1.04);background:#ff0030;}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
 .hamburger span{display:block;width:22px;height:2px;background:#fff;transition:all 0.3s;}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
@@ -443,22 +443,24 @@ footer{background:#030303;padding:80px 64px 40px;border-top:1px solid var(--bord
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
+  <a href="register.html" class="btn-nav" onclick="closeMobile()">Register to attend</a>
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#theme" onclick="closeMobile()">Theme</a>
   <a href="#speakers" onclick="closeMobile()">Speakers</a>
   <a href="#schedule" onclick="closeMobile()">Schedule</a>
-  <a href="#" class="btn-nav" onclick="closeMobile()">Join the Conversation</a>
+  
 </div>
 
 <!-- Nav -->
 <nav id="navbar">
   <a href="#" class="nav-logo"><span class="r">TEDx</span><span class="w">VeritasUniversity</span></a>
   <ul class="nav-links">
+    <li><a href="register.html" class="btn-primary">Register to attend</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#theme">Theme</a></li>
     <li><a href="#speakers">Speakers</a></li>
     <li><a href="#schedule">Schedule</a></li>
-    <li><a href="#" class="btn-nav">Join the Conversation</a></li>
+    
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -480,8 +482,8 @@ footer{background:#030303;padding:80px 64px 40px;border-top:1px solid var(--bord
       <strong>Saturday, 16th May 2026</strong><br class="mobile-break"> New Lecture Theatre, Veritas University, Abuja
     </p>
     <div class="hero-buttons reveal rd5">
-      <a href="#" class="btn-primary">Join the Conversation <i class="fa fa-arrow-right" style="font-size:10px"></i></a>
-      <a href="#theme" class="btn-ghost">Explore the Theme</a>
+      <a href="register.html" class="btn-primary">Register to attend<i class="fa fa-arrow-right" style="font-size:10px"></i></a>
+      
     </div>
   </div>
   <div class="scroll-ind">
