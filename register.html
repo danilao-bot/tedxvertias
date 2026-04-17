@@ -391,31 +391,31 @@ button:hover{
         <form id="registrationForm">
           <div class="form-group">
             <label>Full Name</label>
-            <input type="text" placeholder="e.g Daniel Chibuike" required>
+            <input type="text" name="full_name" placeholder="e.g Daniel Chibuike" required>
           </div>
 
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" placeholder="e.g daniel@email.com" required>
+            <input type="email" name="email" placeholder="e.g daniel@email.com" required>
           </div>
 
           <div class="form-group">
             <label>Phone Number</label>
-            <input type="tel" placeholder="+234..." required>
+            <input type="tel" name="phone" placeholder="+234..." required>
           </div>
 
           <div class="form-group">
             <label>Department / Unit</label>
-            <input type="text" placeholder="e.g Computer Science" required>
+            <input type="text" name="department" placeholder="e.g Computer Science" required>
           </div>
 
           <div class="form-group">
             <label>Status</label>
-            <select required>
+            <select name="status" required>
               <option value="">Select your category</option>
-              <option>Student</option>
-              <option>Staff</option>
-              <option>Guest</option>
+              <option value="Student">Student</option>
+              <option value="Staff">Staff</option>
+              <option value="Guest">Guest</option>
             </select>
           </div>
 
@@ -441,25 +441,54 @@ button:hover{
   </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// INITIALIZE SUPABASE
+const supabaseUrl = 'https://vbpomkzccpwamgencnfc.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZicG9ta3pjY3B3YW1nZW5jbmZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0Mzk2MzAsImV4cCI6MjA5MjAxNTYzMH0.6gIstpOCRg0at81bGj4Hds6B4fUoT1uqwIcaHP1Ov6M';
+
+// The global name is 'supabase' for the CDN version
+const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
 const form = document.getElementById('registrationForm');
 const submitBtn = document.getElementById('submitBtn');
 const formSection = document.getElementById('formSection');
 const successMessage = document.getElementById('successMessage');
 
-form.addEventListener('submit', function(e){
+form.addEventListener('submit', async function(e){
   e.preventDefault();
 
-  submitBtn.innerHTML =
-    '<i class="fa fa-spinner fa-spin"></i> Processing...';
-
+  submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
   submitBtn.disabled = true;
 
-  setTimeout(() => {
+  // COLLECT FORM DATA USING NAME ATTRIBUTES
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  console.log('Sending data to Supabase:', data);
+
+  try {
+    const { error } = await _supabase
+      .from('registrations')
+      .insert([data]);
+
+    if (error) {
+      console.error('Supabase Error:', error);
+      throw new Error(error.message || 'Database error occurred');
+    }
+
+    // SUCCESS UI
     formSection.style.display = 'none';
     successMessage.style.display = 'block';
-    successMessage.classList.add('visible');
-  }, 1500);
+    setTimeout(() => successMessage.classList.add('visible'), 50);
+
+  } catch (err) {
+    console.error('Final Catch Error:', err);
+    // Show a detailed alert to the user so they can tell us the error
+    alert('Failed to register.\n\nReason: ' + err.message + '\n\nPlease ensure your Supabase table "registrations" allows inserts.');
+    submitBtn.innerHTML = 'Register Now';
+    submitBtn.disabled = false;
+  }
 });
 
 // Reveal Logic
