@@ -19,22 +19,61 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background-color: var(--bg-dark);
+    background: radial-gradient(circle at center, #1a0205 0%, #000000 70%);
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 60px 20px;
+    margin: 0;
+}
+
+/* Add an ambient background glow for desktop */
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(235, 0, 40, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* ── CARD SHELL ── */
 .email-card {
-    width: 480px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
     background-color: var(--card-bg);
     border-radius: 40px;
     box-shadow: 0 0 120px rgba(0,0,0,0.95);
+}
+
+@media (max-width: 500px) {
+    .inner-border {
+        padding: 30px 20px 40px;
+    }
+    .hero-title {
+        font-size: 46px;
+    }
+    .details-grid {
+        padding: 16px 0;
+    }
+    .detail-label {
+        font-size: 8px;
+    }
+    .detail-value {
+        font-size: 11px;
+    }
+    .stage-arcs-wrap {
+        margin: -10px -20px 0;
+    }
 }
 
 .outer-border {
@@ -463,7 +502,7 @@ body {
         </div>
         <div class="detail-item">
           <span class="detail-label">03 / VENUE</span>
-          <span class="detail-value">Veritas NLTC<br>(New Lecture Theater)</span>
+          <span class="detail-value">Veritas NLT<br>(New Lecture Theater)</span>
         </div>
       </div>
 
@@ -487,10 +526,10 @@ body {
 <script>
 document.getElementById("syncBtn").addEventListener("click", function () {
     const title       = "TEDxVeritasUni — The Stage Is Set";
-    const location    = "Veritas NLTC (New Lecture Theater)";
+    const location    = "Veritas NLT (New Lecture Theater)";
     const description = "You are on the list. The dialogue begins soon.";
-    const startDate   = "20260417T090000";
-    const endDate     = "20260417T120000";
+    const startDate   = "20260517T090000";
+    const endDate     = "20260517T120000";
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
