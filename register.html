@@ -421,6 +421,10 @@ button:hover{
             <div id="alumniMessage" style="display:none; font-size:12px; color:var(--muted); margin-top:8px;"></div>
           </div>
 
+          <div id="errorMessage" style="display:none; background:rgba(235,0,40,0.1); border:1px solid var(--red); color:var(--red); padding:12px; margin-bottom:20px; font-size:13px; border-radius:4px;">
+            <i class="fa fa-triangle-exclamation"></i> <span id="errorText"></span>
+          </div>
+
           <button type="submit" id="submitBtn">
             Register Now
           </button>
@@ -515,8 +519,18 @@ form.addEventListener('submit', async function(e){
 
   } catch (err) {
     console.error('Final Catch Error:', err);
-    // Show a detailed alert to the user so they can tell us the error
-    alert('Failed to register.\n\nReason: ' + err.message + '\n\nPlease ensure your Supabase table "registrations" allows inserts.');
+    
+    // UI Error Handling
+    const errorDiv = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    
+    if (errorDiv && errorText) {
+      errorText.innerText = err.message || 'An unexpected error occurred. Please try again.';
+      errorDiv.style.display = 'block';
+    } else {
+      alert('Failed to register.\n\nReason: ' + err.message);
+    }
+    
     submitBtn.innerHTML = 'Register Now';
     submitBtn.disabled = false;
   }
