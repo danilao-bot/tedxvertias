@@ -1,0 +1,19 @@
+{
+  "_comment": "Certificate template configuration. Place template images (PNG/JPG) in this folder and update the templates map. Adjust namePosition to match your template design.",
+  "namePosition": {
+    "x": 421,
+    "y": 280,
+    "fontSize": 42,
+    "color": "#1a1a1a",
+    "font": "HelveticaBold",
+    "centered": true
+  },
+  "templates": {
+    "default": "default.png",
+    "UnderGraduate": "undergraduate.png",
+    "PostGraduate": "postgraduate.png",
+    "Staff": "staff.png",
+    "Guest": "guest.png",
+    "Alumni": "alumni.png"
+  }
+}
