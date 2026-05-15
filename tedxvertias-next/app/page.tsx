@@ -230,6 +230,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SPONSORS */}
+      <section className="sponsors" id="sponsors">
+        <div className="max-w">
+          <span className="sp-label reveal">Our Official Partners</span>
+          <div className="sp-row reveal rd1">
+            <div className="sp-slot">
+              <img src="/veritas-logo.jpg" alt="Veritas University" />
+              <span className="sp-name">Veritas University</span>
+            </div>
+            <div className="sp-slot">
+              <img src="/zenith-logo.png" alt="Zenith Bank" />
+              <span className="sp-name">Zenith Bank</span>
+            </div>
+            <div className="sp-slot">
+              <img src="/cway-logo.png" alt="CWAY" />
+              <span className="sp-name">CWAY</span>
+            </div>
+            <div className="sp-slot">
+              <img src="/nextar-logo.jpg" alt="Nextar" />
+              <span className="sp-name">Nextar</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Countdown />
 
       {/* FOOTER */}
