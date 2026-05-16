@@ -1,19 +1,19 @@
 {
-  "_comment": "Certificate template configuration. Place template images (PNG/JPG) in this folder and update the templates map. Adjust namePosition to match your template design.",
+  "_comment": "Certificate template configuration. One certificate.png is used for all categories.",
   "namePosition": {
-    "x": 421,
-    "y": 280,
-    "fontSize": 42,
+    "x": 2500,
+    "y": 1700,
+    "fontSize": 120,
     "color": "#1a1a1a",
-    "font": "HelveticaBold",
+    "font": "TimesRomanBold",
     "centered": true
   },
   "templates": {
-    "default": "default.png",
-    "UnderGraduate": "undergraduate.png",
-    "PostGraduate": "postgraduate.png",
-    "Staff": "staff.png",
-    "Guest": "guest.png",
-    "Alumni": "alumni.png"
+    "default": "certificate.png",
+    "UnderGraduate": "certificate.png",
+    "PostGraduate": "certificate.png",
+    "Staff": "certificate.png",
+    "Guest": "certificate.png",
+    "Alumni": "certificate.png"
   }
 }

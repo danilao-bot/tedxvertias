@@ -15,6 +15,7 @@ export default function AdminPage() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [sendingId, setSendingId] = useState(null);
+  const [previewingId, setPreviewingId] = useState(null);
   const [batchStatus, setBatchStatus] = useState(null);
   const [error, setError] = useState('');
 
@@ -77,6 +78,32 @@ export default function AdminPage() {
       fetchRegistrations();
     }
   }, [filter, search, isLoggedIn]);
+
+  const previewCertificate = async (userId) => {
+    setPreviewingId(userId);
+    try {
+      const res = await fetch(`${API_URL}/certificate/preview`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', email, password },
+        body: JSON.stringify({ userId })
+      });
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        // Clean up blob URL after a delay
+        setTimeout(() => window.URL.revokeObjectURL(url), 30000);
+      } else {
+        const data = await res.json();
+        alert('Preview failed: ' + (data.error || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Error generating preview');
+    } finally {
+      setPreviewingId(null);
+    }
+  };
 
   const sendCertificate = async (userId) => {
     setSendingId(userId);
@@ -271,10 +298,16 @@ export default function AdminPage() {
                       )}
                     </td>
                     <td style={{ padding: '14px 16px', textAlign: 'center' }}>
-                      <button onClick={() => sendCertificate(r.id)} disabled={sendingId === r.id || r.certificate_sent}
-                        style={{ background: r.certificate_sent ? '#222' : '#EB0028', color: r.certificate_sent ? '#666' : '#fff', border: 'none', padding: '6px 14px', borderRadius: 4, cursor: r.certificate_sent ? 'default' : 'pointer', fontSize: 11, fontWeight: 600 }}>
-                        {sendingId === r.id ? 'Sending...' : r.certificate_sent ? 'Sent' : 'Send'}
-                      </button>
+                      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+                        <button onClick={() => previewCertificate(r.id)} disabled={previewingId === r.id}
+                          style={{ background: '#333', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 600 }}>
+                          {previewingId === r.id ? '...' : 'Preview'}
+                        </button>
+                        <button onClick={() => sendCertificate(r.id)} disabled={sendingId === r.id || r.certificate_sent}
+                          style={{ background: r.certificate_sent ? '#222' : '#EB0028', color: r.certificate_sent ? '#666' : '#fff', border: 'none', padding: '6px 14px', borderRadius: 4, cursor: r.certificate_sent ? 'default' : 'pointer', fontSize: 11, fontWeight: 600 }}>
+                          {sendingId === r.id ? 'Sending...' : r.certificate_sent ? 'Sent' : 'Send'}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
